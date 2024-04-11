@@ -1,0 +1,59 @@
+version: '3.4'
+
+networks:
+  user:
+   driver: bridge
+
+
+services:
+  message.api:
+    container_name: messageapi
+    image: ${DOCKER_REGISTRY-}messageapi
+    build:
+      context: .
+      dockerfile: MicroServices/Message/Message.API/Dockerfile
+    networks:
+      - user
+    depends_on:
+      - usermessagedb
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - DB_HOST=usermessagedb
+      - DB_DATABASE=MessageDB
+      - DB_USER=sa
+      - DB_MSSQL_SA_PASSWORD=Pwd123!!3
+
+  user.api:
+    container_name: userapi
+    image: ${DOCKER_REGISTRY-}userapi
+    build:
+      context: .
+      dockerfile: MicroServices/User/User.API/Dockerfile
+    networks:
+      - user
+    depends_on:
+      - usermessagedb
+    ports:
+      - "8082:8082"
+      - "8083:8083"
+    environment:
+      - DB_HOST=usermessagedb
+      - DB_DATABASE=UserDB
+      - DB_USER=sa
+      - DB_MSSQL_SA_PASSWORD=Pwd123!!3
+
+  usermessagedb:
+    container_name: usermessagedb
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      - user
+    ports:
+      - "1401:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Pwd123!!3
+      - MSSQL_PID=Developer
+
+
