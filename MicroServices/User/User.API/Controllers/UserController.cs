@@ -36,14 +36,13 @@ public class UserController(ILogger<UserController>logger, IUnitOfWork unitOfWor
     }
 
     [HttpGet("get-all")]
-    public async Task<ActionResult<IEnumerable<UserDto>>> GetAllUsers()
+    public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
     {
         var users = await _unitOfWork.UserRepository.GetAllAsync();
         if (users is null)
         {
-            return Ok(new List<UserDto>());
+            return Ok(new List<User>());
         }
-        var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
         return Ok(users);
     }
 

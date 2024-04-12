@@ -27,15 +27,14 @@ public class MessageController(ILogger<MessageController> logger, IMessageReposi
     }
 
     [HttpGet("get-all")]
-    public async Task<ActionResult<IEnumerable<MessageDto>>> GetAllMessages()
+    public async Task<ActionResult<IEnumerable<Message>>> GetAllMessages()
     {
         var messages = await _messageRepository.GetAllAsync();
         if (messages is null)
         {
-            return Ok(Enumerable.Empty<MessageDto>());
+            return Ok(Enumerable.Empty<Message>());
         }
-        var messageDtos = _mapper.Map<IEnumerable<MessageDto>>(messages).ToList();
-        return Ok(messageDtos);
+        return Ok(messages);
     }
 
     [HttpPost("add")]

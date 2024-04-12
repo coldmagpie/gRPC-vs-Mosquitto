@@ -14,7 +14,7 @@ var username = Environment.GetEnvironmentVariable("DB_USER");
 var password = Environment.GetEnvironmentVariable("DB_MSSQL_SA_PASSWORD");
 
 var connectionString =
-    $"Data Source={host},1401;Initial Catalog={databaseName};User ID={username};Password={password};Trusted_connection=False;TrustServerCertificate=True;";
+    $"Data Source={host};Initial Catalog={databaseName};User ID={username};Password={password};Trusted_connection=False;TrustServerCertificate=True;";
 
 builder.Services.AddSqlServer<MessageContext>(connectionString);
 builder.Services.AddEndpointsApiExplorer();
