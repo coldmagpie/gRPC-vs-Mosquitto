@@ -1,8 +1,8 @@
 ﻿using DataAccess.Context;
-using DataAccess.Models;
+using Message.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess.Repositories;
+namespace Message.DataAccess.Repositories;
 public class UserMessageRepository(ApplicationContext context) : IUserMessageRepository
 {
     private readonly ApplicationContext _context = context;

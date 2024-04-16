@@ -10,10 +10,14 @@
     <DockerServiceName>message.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="mosquittos\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="mosquitto\mosquitto.conf" />
   </ItemGroup>
 </Project>

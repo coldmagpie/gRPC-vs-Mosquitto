@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using DataAccess.Models;
 using Domain.Dtos;
+using User.DataAccess.Models;
 
 namespace API.Mappers;
 public class UserMapper : Profile
 {
     public UserMapper()
     {
-        CreateMap<User, UserDto>()
+        CreateMap<UserModel, UserDto>()
             .ForMember(m => m.FirstName, act => act.MapFrom(d => d.FirstName))
             .ForMember(m => m.LastName, act => act.MapFrom(d => d.LastName))
             .ForMember(m => m.NickName, act => act.MapFrom(d => d.NickName))

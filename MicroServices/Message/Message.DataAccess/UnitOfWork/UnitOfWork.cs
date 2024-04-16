@@ -1,18 +1,18 @@
-﻿
-using DataAccess.Context;
+﻿using DataAccess.Context;
 using DataAccess.Repositories;
+using Message.DataAccess.Repositories;
 
-namespace DataAccess.UnitOfWork;
+namespace Message.DataAccess.UnitOfWork;
 
-public class UnitOfWork(ApplicationContext context, IUserRepository userRepository, IUserMessageRepository userMessageRepository) : IUnitOfWork, IDisposable
+public class UnitOfWork(ApplicationContext context, IMessageRepository messageRepository, IUserMessageRepository userMessageRepository) : IUnitOfWork, IDisposable
 {
     private readonly ApplicationContext _context = context;
-    public IUserRepository _userRepository = userRepository;
+    public IMessageRepository _userRepository = messageRepository;
     public IUserMessageRepository _userMessageRepository = userMessageRepository;
 
-    public IUserRepository UserRepository => _userRepository;
+    public IMessageRepository MessageRepository => _userRepository;
     public IUserMessageRepository UserMessageRepository => _userMessageRepository;
-    
+
 
     private bool _disposed;
 

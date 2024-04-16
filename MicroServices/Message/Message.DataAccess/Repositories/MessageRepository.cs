@@ -4,39 +4,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories;
 
-public class MessageRepository(MessageContext context) : IMessageRepository
+public class MessageRepository(ApplicationContext context) : IMessageRepository
 {
-    private readonly MessageContext _context = context;
-    public async Task AddAsync(Message entity)
+    private readonly ApplicationContext _context = context;
+    public async Task AddAsync(MessageModel entity)
     {
         await _context.AddAsync(entity);
-        await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        var message = await GetByIdAsync(id);
+        var message = await _context.Messages.FirstOrDefaultAsync(x => x.Id.Equals(id));
         if (message != null)
         {
             _context.Messages.Remove(message);
         }
-        await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<Message>> GetAllAsync()
+    public async Task<IEnumerable<MessageModel>> GetAllAsync()
     {
         return await _context.Messages.ToListAsync();
     }
 
-    public async Task<Message?> GetByIdAsync(Guid id)
+    public async Task<MessageModel> GetByIdAsync(Guid id)
     {
         return await _context.Messages.FirstOrDefaultAsync(x => x.Id.Equals(id));
     }
 
-    public Task UpdateAsync(Message entity)
+    public Task UpdateAsync(MessageModel entity)
     {
         _context.Messages.Update(entity);
-        _context.SaveChanges();
         return Task.CompletedTask;
     }
 }

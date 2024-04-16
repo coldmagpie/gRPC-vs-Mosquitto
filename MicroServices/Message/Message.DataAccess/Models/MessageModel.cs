@@ -1,7 +1,7 @@
 ﻿using Domain.Interfaces;
 
 namespace DataAccess.Models;
-public class Message : IEntity<Guid>
+public class MessageModel : IEntity<Guid>
 {
     public Guid Id { get; set; }
     public Guid Sender { get; set; }

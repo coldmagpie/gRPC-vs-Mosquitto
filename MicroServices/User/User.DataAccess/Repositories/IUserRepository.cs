@@ -1,9 +1,9 @@
-﻿using DataAccess.Models;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
+using User.DataAccess.Models;
 
 namespace DataAccess.Repositories;
 
-public interface IUserRepository : IRepository<User, Guid>
+public interface IUserRepository : IRepository<UserModel, Guid>
 {
 
 }

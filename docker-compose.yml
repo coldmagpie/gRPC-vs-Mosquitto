@@ -48,4 +48,17 @@ services:
       - SA_PASSWORD=Pwd123!!3
       - MSSQL_PID=Developer
 
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto
+    hostname: mosquitto
+    restart: unless-stopped
+    volumes:
+      - ./mosquitto:/etc/mosquitto:rw
+      - ./mosquitto/mosquitto.conf:rw:/mosquitto/config/mosquitto.conf
+    networks:
+      - usermessage
+    ports:
+      - "1883:1883"
+
 

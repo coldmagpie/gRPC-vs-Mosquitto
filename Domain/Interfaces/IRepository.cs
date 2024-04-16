@@ -1,5 +1,4 @@
-﻿
-namespace Domain.Interfaces;
+﻿namespace Domain.Interfaces;
 public interface IRepository<TEntity, TId> where TEntity : IEntity<TId>
 {
     Task<TEntity?> GetByIdAsync(TId id);

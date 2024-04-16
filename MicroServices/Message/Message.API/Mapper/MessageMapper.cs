@@ -7,7 +7,7 @@ public class MessageMapper : Profile
 {
     public MessageMapper()
     {
-        CreateMap<Message, MessageDto>()
+        CreateMap<MessageModel, MessageDto>()
             .ForMember(m => m.Sender, act => act.MapFrom(d => d.Sender))
             .ForMember(m => m.Recipient, act => act.MapFrom(d => d.Recipient))
             .ForMember(m => m.Content, act => act.MapFrom(d => d.Content))

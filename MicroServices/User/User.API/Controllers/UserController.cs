@@ -1,32 +1,31 @@
 using AutoMapper;
-using DataAccess.Models;
-using DataAccess.UnitOfWork;
+using DataAccess.Repositories;
 using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using User.DataAccess.Models;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UserController(ILogger<UserController>logger, IUnitOfWork unitOfWork, IMapper mapper) : ControllerBase
+public class UserController(ILogger<UserController>logger, IUserRepository userRepository, IMapper mapper) : ControllerBase
 {
     private readonly ILogger<UserController> _logger = logger;
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IUserRepository _userRepository = userRepository;
     private readonly IMapper _mapper = mapper;
 
     [HttpPost("add")]
     public async Task<ActionResult> Register([FromBody]UserDto dto)
     {
-        var user = _mapper.Map<User>(dto);
-        await _unitOfWork.UserRepository.AddAsync(user);
-        await _unitOfWork.SaveAsync();
+        var user = _mapper.Map<UserModel>(dto);
+        await _userRepository.AddAsync(user);
         return Ok("user created");
     }
 
     [HttpGet("get/{id}")]
     public async Task<ActionResult<UserDto>> GetUser(Guid id)
     {
-        var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
+        var user = await _userRepository.GetByIdAsync(id);
         if (user is null)
         {
             return NotFound("user not found");
@@ -36,20 +35,20 @@ public class UserController(ILogger<UserController>logger, IUnitOfWork unitOfWor
     }
 
     [HttpGet("get-all")]
-    public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+    public async Task<ActionResult<IEnumerable<UserModel>>> GetAllUsers()
     {
-        var users = await _unitOfWork.UserRepository.GetAllAsync();
+        var users = await _userRepository.GetAllAsync();
         if (users is null)
         {
-            return Ok(new List<User>());
+            return Ok(new List<UserModel>());
         }
         return Ok(users);
     }
 
     [HttpPut("update")]
-    public async Task<ActionResult<User>> UpdateProfile(Guid id, [FromBody]UserDto dto)
+    public async Task<ActionResult<UserModel>> UpdateProfile(Guid id, [FromBody]UserDto dto)
     {
-        var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
+        var user = await _userRepository.GetByIdAsync(id);
         if (user is null)
         {
             return NotFound("user not found");
@@ -58,20 +57,18 @@ public class UserController(ILogger<UserController>logger, IUnitOfWork unitOfWor
         user.LastName = dto.LastName;
         user.NickName = dto.NickName;
         user.Password = dto.Password;
-        await _unitOfWork.SaveAsync();
         return Ok(user);
     }
 
     [HttpDelete("delete")]
     public async Task<ActionResult> DeleteUser(Guid id)
     {
-        var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
+        var user = await _userRepository.GetByIdAsync(id);
         if (user is null)
         {
             return NotFound("user not found");
         }
-        await _unitOfWork.UserRepository.DeleteAsync(id);
-        await _unitOfWork.SaveAsync();
+        await _userRepository.DeleteAsync(id);
         return Ok("user deleted");
     }
 }

@@ -1,16 +1,18 @@
 ﻿using DataAccess.Context;
-using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
+using User.DataAccess.Models;
 
 namespace DataAccess.Repositories;
 
-public class UserRepository(ApplicationContext context) : IUserRepository
+public class UserRepository(UserContext context) : IUserRepository
 {
-    private readonly ApplicationContext _context = context;
-    public async Task AddAsync(User entity)
+    private readonly UserContext _context = context;
+    public async Task AddAsync(UserModel entity)
     {
         await _context.Users.AddAsync(entity);
+        await _context.SaveChangesAsync();
     }
+
 
     public async Task DeleteAsync(Guid id)
     {
@@ -18,22 +20,24 @@ public class UserRepository(ApplicationContext context) : IUserRepository
         if (user is not null)
         {
             _context.Users.Remove(user);
-        }    
+        }
+        await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<User>> GetAllAsync()
+    public async Task<IEnumerable<UserModel>> GetAllAsync()
     {
         return await _context.Users.ToListAsync();
     }
 
-    public async Task<User?> GetByIdAsync(Guid id)
+    public async Task<UserModel?> GetByIdAsync(Guid id)
     {
         return await _context.Users.FirstOrDefaultAsync(u => u.Id.Equals(id));
     }
 
-    public Task UpdateAsync(User entity)
+    public Task UpdateAsync(UserModel entity)
     {
         _context.Users.Update(entity);
+        _context.SaveChangesAsync();
         return Task.CompletedTask;
     }
 }

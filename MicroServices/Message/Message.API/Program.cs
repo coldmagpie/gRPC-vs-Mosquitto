@@ -1,5 +1,9 @@
 using DataAccess.Context;
 using DataAccess.Repositories;
+using Message.API.Services;
+using Message.DataAccess.Repositories;
+using Message.DataAccess.UnitOfWork;
+using MQTTnet.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,10 +20,14 @@ var password = Environment.GetEnvironmentVariable("DB_MSSQL_SA_PASSWORD");
 var connectionString =
     $"Data Source={host};Initial Catalog={databaseName};User ID={username};Password={password};Trusted_connection=False;TrustServerCertificate=True;";
 
-builder.Services.AddSqlServer<MessageContext>(connectionString);
+builder.Services.AddSqlServer<ApplicationContext>(connectionString);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<IUserMessageRepository, UserMessageRepository>();
+builder.Services.AddScoped<IMqttClient, MqttClient>();
+builder.Services.AddScoped<IPublishService, PublishService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 
