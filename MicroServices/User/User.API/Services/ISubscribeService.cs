@@ -2,5 +2,5 @@
 namespace User.API.Services;
 public interface ISubscribeService
 {
-    Task SubscribeMessageAsync();
+    Task<string> SubscribeMessageAsync(Guid id);
 }

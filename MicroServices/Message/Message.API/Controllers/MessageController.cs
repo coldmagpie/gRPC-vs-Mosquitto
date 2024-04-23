@@ -51,8 +51,7 @@ public class MessageController(ILogger<MessageController> logger, IUnitOfWork un
             await _unitOfWork.SaveAsync();
 
             // Connect to MQTT broker and publish the message
-            await _publishService.ConnectAsync();
-            await _publishService.PublisMessageAsync(dto);
+            await _publishService.PublishAsync(dto);
 
             // Create the corresponding UserMessage entry
             var userMessage = new UserMessage
@@ -63,7 +62,7 @@ public class MessageController(ILogger<MessageController> logger, IUnitOfWork un
             await _unitOfWork.UserMessageRepository.AddAsync(userMessage);
             await _unitOfWork.SaveAsync();
 
-            return Ok("created and published");
+            return Ok("message created and published");
         }
         catch (Exception ex)
         {

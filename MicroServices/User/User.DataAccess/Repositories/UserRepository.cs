@@ -13,7 +13,6 @@ public class UserRepository(UserContext context) : IUserRepository
         await _context.SaveChangesAsync();
     }
 
-
     public async Task DeleteAsync(Guid id)
     {
         var user = await GetByIdAsync(id);

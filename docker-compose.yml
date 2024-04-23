@@ -38,7 +38,7 @@ services:
 
   usermessagedb:
     container_name: usermessagedb
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: mcr.microsoft.com/mssql/server:2019-latest
     networks:
       - usermessage
     ports:
@@ -55,7 +55,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./mosquitto:/etc/mosquitto:rw
-      - ./mosquitto/mosquitto.conf:rw:/mosquitto/config/mosquitto.conf
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
     networks:
       - usermessage
     ports:

@@ -2,16 +2,19 @@ using AutoMapper;
 using DataAccess.Repositories;
 using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using User.API.Services;
 using User.DataAccess.Models;
 
 namespace API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UserController(ILogger<UserController>logger, IUserRepository userRepository, IMapper mapper) : ControllerBase
+public class UserController(ILogger<UserController>logger, IUserRepository userRepository, IMapper mapper, ISubscribeService subscribeService) : ControllerBase
 {
     private readonly ILogger<UserController> _logger = logger;
     private readonly IUserRepository _userRepository = userRepository;
+    private readonly ISubscribeService _subscribeService = subscribeService;
     private readonly IMapper _mapper = mapper;
 
     [HttpPost("add")]
@@ -32,6 +35,23 @@ public class UserController(ILogger<UserController>logger, IUserRepository userR
         }
         var userDto = _mapper.Map<UserDto>(user);
         return Ok(userDto);
+    }
+
+    [HttpGet("{id}/message")]
+    public async Task<ActionResult> GetUserWithRecievedMessage(Guid id)
+    {
+        var user = await _userRepository.GetByIdAsync(id);
+        if (user is null)
+        {
+            return NotFound("user not found");
+        }
+        var message = await _subscribeService.SubscribeMessageAsync(id);
+        _logger.LogInformation(message);
+        if (message is null)
+        {
+            return NotFound($"no message recieved for user {id}");
+        }
+        return Ok(message);
     }
 
     [HttpGet("get-all")]

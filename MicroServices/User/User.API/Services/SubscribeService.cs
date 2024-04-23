@@ -1,17 +1,21 @@
-﻿using MQTTnet;
+﻿using Domain.Dtos;
+using MQTTnet;
 using MQTTnet.Client;
-using MQTTnet.Server;
+using Newtonsoft.Json;
 using System.Text;
-
 
 namespace User.API.Services;
 public class SubscribeService(ILogger<SubscribeService> logger) : ISubscribeService
 {
     private readonly ILogger<SubscribeService> _logger = logger;
-    public async Task SubscribeMessageAsync() 
+    
+
+    public async Task<string> SubscribeMessageAsync(Guid id) 
     {
+        string receivedMessageContent = null;
         var mqttFactory = new MqttFactory();
-        IMqttClient client = mqttFactory.CreateMqttClient();
+
+        var client = mqttFactory.CreateMqttClient();
         var options = new MqttClientOptionsBuilder()
             .WithClientId(Guid.NewGuid().ToString())
             .WithTcpServer("mosquitto", 1883) // Use "mosquitto" as the hostname since it's the service name in Docker Compose
@@ -21,21 +25,34 @@ public class SubscribeService(ILogger<SubscribeService> logger) : ISubscribeServ
         var topicFilter = new MqttTopicFilterBuilder()
             .WithTopic("messages")
             .Build();
-        var connectResult = await client.ConnectAsync(options, CancellationToken.None);
-        if (connectResult.ResultCode == MqttClientConnectResultCode.Success)
+
+        var result = await client.ConnectAsync(options, CancellationToken.None);
+
+        if (result.ResultCode != MqttClientConnectResultCode.Success)
         {
-            _logger.LogInformation("Connected to MQTT broker successfully.");
-            await client.SubscribeAsync(topicFilter);
+            _logger.LogError("Can not connect to MQTT broker");
+            return null;
         }
-        
-        client.ApplicationMessageReceivedAsync += e =>
+        _logger.LogInformation("Connected to MQTT broker successfully.");
+
+        await client.SubscribeAsync(new MqttClientSubscribeOptionsBuilder().WithTopicFilter(topicFilter).Build());
+
+        client.ApplicationMessageReceivedAsync +=  e  =>
         {
-            _logger.LogInformation($"Received message: {Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment)}");
+            // Process received message
+            var payload = Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment);
+            _logger.LogInformation($"Received message: {payload}");
+
+            var userMessage = JsonConvert.DeserializeObject<MessageDto>(payload);
+            if (!userMessage.Sender.Equals(id))
+            {
+                _logger.LogInformation("no message recieved for user");
+            }
+            receivedMessageContent = userMessage.Content;
+            _logger.LogInformation(userMessage.Content);
             return Task.CompletedTask;
         };
-        await client.ConnectAsync(options);
-        await client.DisconnectAsync();
-
-    }
-
+        return receivedMessageContent;
+    }  
+    
 }

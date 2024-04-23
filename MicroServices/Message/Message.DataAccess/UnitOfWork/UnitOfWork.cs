@@ -7,10 +7,10 @@ namespace Message.DataAccess.UnitOfWork;
 public class UnitOfWork(ApplicationContext context, IMessageRepository messageRepository, IUserMessageRepository userMessageRepository) : IUnitOfWork, IDisposable
 {
     private readonly ApplicationContext _context = context;
-    public IMessageRepository _userRepository = messageRepository;
+    public IMessageRepository _messageRepository = messageRepository;
     public IUserMessageRepository _userMessageRepository = userMessageRepository;
 
-    public IMessageRepository MessageRepository => _userRepository;
+    public IMessageRepository MessageRepository => _messageRepository;
     public IUserMessageRepository UserMessageRepository => _userMessageRepository;
 
 
