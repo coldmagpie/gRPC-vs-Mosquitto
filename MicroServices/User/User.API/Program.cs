@@ -1,4 +1,3 @@
-using Azure.Messaging;
 using DataAccess.Context;
 using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-var host = Environment.GetEnvironmentVariable("DB_HOST")??"localhost";
-var databaseName = Environment.GetEnvironmentVariable("DB_DATABASE") ??"UserMessageDb";
+var host = Environment.GetEnvironmentVariable("DB_HOST")?? "127.0.0.1";
+var databaseName = Environment.GetEnvironmentVariable("DB_DATABASE") ??"UserDB";
 var username = Environment.GetEnvironmentVariable("DB_USER")??"sa";
 var password = Environment.GetEnvironmentVariable("DB_MSSQL_SA_PASSWORD") ?? "Pwd123!!3";
 

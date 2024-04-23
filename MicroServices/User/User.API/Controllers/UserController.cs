@@ -45,12 +45,13 @@ public class UserController(ILogger<UserController>logger, IUserRepository userR
         {
             return NotFound("user not found");
         }
+
         var message = await _subscribeService.SubscribeMessageAsync(id);
-        _logger.LogInformation(message);
         if (message is null)
         {
-            return NotFound($"no message recieved for user {id}");
+            return NotFound($"no message found for user {id}");
         }
+
         return Ok(message);
     }
 

@@ -17,8 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-var host = Environment.GetEnvironmentVariable("DB_HOST") ?? "localhost";
-var databaseName = Environment.GetEnvironmentVariable("DB_DATABASE") ?? "UserMessageDb";
+var host = Environment.GetEnvironmentVariable("DB_HOST") ?? "127.0.0.1";
+var databaseName = Environment.GetEnvironmentVariable("DB_DATABASE") ?? "MessageDb";
 var username = Environment.GetEnvironmentVariable("DB_USER") ?? "sa";
 var password = Environment.GetEnvironmentVariable("DB_MSSQL_SA_PASSWORD") ?? "Pwd123!!3";
 
@@ -48,21 +48,7 @@ builder.Services.AddScoped<IPublishService, PublishService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddAutoMapper(typeof(Program));
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
-        });
-});
 var app = builder.Build();
-
-
-// In Configure method
-app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

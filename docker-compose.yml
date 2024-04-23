@@ -42,7 +42,7 @@ services:
     networks:
       - usermessage
     ports:
-      - "1401:1433"
+      - "1433:1433"
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Pwd123!!3

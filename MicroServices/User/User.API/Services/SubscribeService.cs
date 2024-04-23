@@ -8,8 +8,7 @@ namespace User.API.Services;
 public class SubscribeService(ILogger<SubscribeService> logger) : ISubscribeService
 {
     private readonly ILogger<SubscribeService> _logger = logger;
-    
-
+   
     public async Task<string> SubscribeMessageAsync(Guid id) 
     {
         string receivedMessageContent = null;
@@ -35,7 +34,7 @@ public class SubscribeService(ILogger<SubscribeService> logger) : ISubscribeServ
         }
         _logger.LogInformation("Connected to MQTT broker successfully.");
 
-        await client.SubscribeAsync(new MqttClientSubscribeOptionsBuilder().WithTopicFilter(topicFilter).Build());
+        
 
         client.ApplicationMessageReceivedAsync +=  e  =>
         {
@@ -52,7 +51,12 @@ public class SubscribeService(ILogger<SubscribeService> logger) : ISubscribeServ
             _logger.LogInformation(userMessage.Content);
             return Task.CompletedTask;
         };
+        await client.SubscribeAsync(new MqttClientSubscribeOptionsBuilder().WithTopicFilter(topicFilter).Build());
+
+        while (receivedMessageContent is null)
+        {
+            Thread.Sleep(1000);
+        }
         return receivedMessageContent;
-    }  
-    
+    }    
 }
