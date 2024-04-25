@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Protos\message.proto" />
+    <None Remove="Protos\communication.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,11 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Message\Message.DataAccess\Message.DataAccess.csproj" />
+    <ProjectReference Include="..\gRPC.DataAccess\gRPC.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\message.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\communication.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>

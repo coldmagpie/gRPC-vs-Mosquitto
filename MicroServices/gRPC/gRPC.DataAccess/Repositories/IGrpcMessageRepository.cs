@@ -3,7 +3,7 @@ using gRPC.DataAccess.Models;
 
 namespace gRPC.DataAccess.Repositories;
 
-public interface IGrpcMessageRepository : IRepository<GrpcMessageModel, Guid>
+public interface IGrpcMessageRepository : IRepository<MessageModel, Guid>
 {
 
 }

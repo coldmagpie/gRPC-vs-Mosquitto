@@ -1,0 +1,38 @@
+﻿syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "gRPC.server";
+
+service Communication {
+    rpc SendMessage(Message) returns (MessageResponse);
+    rpc GetOneMessage(MessageFilter) returns (stream Message);
+    rpc GetAllMessages(Empty) returns (stream Messages);
+    rpc DeleteMessage (MessageFilter) returns (Empty);
+    rpc EditMessage (Message) returns (Message);
+}
+
+message Empty {
+
+}
+
+message Message {
+    string messageId = 1;
+    string sender = 2;
+    string recipient = 3;
+    string content = 4;
+    google.protobuf.Timestamp timeStamp = 5;
+}
+
+message MessageResponse {
+    string messageId = 1;
+    string status = 2;
+}
+
+message MessageFilter {
+    string messageId = 1;
+}
+
+message Messages {
+    repeated Message messages = 1;
+}
+

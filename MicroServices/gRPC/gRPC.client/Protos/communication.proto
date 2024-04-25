@@ -1,9 +1,9 @@
 ﻿syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 
-option csharp_namespace = "Grpc.server";
+option csharp_namespace = "gRPC.server";
 
-service Chat {
+service Communication {
     rpc SendMessage(Message) returns (MessageResponse);
     rpc GetOneMessage(MessageFilter) returns (stream Message);
     rpc GetAllMessages(Empty) returns (stream Messages);

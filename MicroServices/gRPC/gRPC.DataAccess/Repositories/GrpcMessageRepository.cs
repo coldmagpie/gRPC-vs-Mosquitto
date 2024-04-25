@@ -7,23 +7,23 @@ public class GrpcMessageRepository(MessageContext context) : IGrpcMessageReposit
 {
     private readonly MessageContext _context = context;
 
-    public async Task<GrpcMessageModel?> GetByIdAsync(Guid id)
+    public async Task<MessageModel?> GetByIdAsync(Guid id)
     {
         return await _context.Messages.FirstOrDefaultAsync(m => m.Id.Equals(id));
     }
 
-    public async Task<IEnumerable<GrpcMessageModel>> GetAllAsync()
+    public async Task<IEnumerable<MessageModel>> GetAllAsync()
     {
         return await _context.Messages.ToListAsync();
     }
 
-    public async Task AddAsync(GrpcMessageModel entity)
+    public async Task AddAsync(MessageModel entity)
     {
         await _context.Messages.AddAsync(entity);
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(GrpcMessageModel entity)
+    public async Task UpdateAsync(MessageModel entity)
     {
         var message = await _context.Messages.FirstOrDefaultAsync(m => m.Id.Equals(entity.Id));
         message.Content = entity.Content;

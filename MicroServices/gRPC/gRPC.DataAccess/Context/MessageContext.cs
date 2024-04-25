@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 namespace gRPC.DataAccess.Context;
 public partial class MessageContext : DbContext
 {
-    public virtual DbSet<GrpcMessageModel> Messages { get; set; } = null!;
+    public virtual DbSet<MessageModel> Messages { get; set; } = null!;
     public MessageContext(DbContextOptions<MessageContext> options) : base(options)
     {
         try

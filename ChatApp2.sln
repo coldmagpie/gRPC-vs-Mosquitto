@@ -23,9 +23,11 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gRPC", "gRPC", "{7877CEBA-736B-4744-9E46-AB09B6CADFF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.server", "MicroServices\gRPC\gRPC.server\gRPC.server.csproj", "{C2D84785-E8F8-4EF9-8D5C-257C0965817D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.server", "MicroServices\gRPC\gRPC.server\gRPC.server.csproj", "{C2D84785-E8F8-4EF9-8D5C-257C0965817D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.DataAccess", "MicroServices\gRPC\gRPC.DataAccess\gRPC.DataAccess.csproj", "{C3A33322-5A99-43B9-9792-24B7AD636CB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.DataAccess", "MicroServices\gRPC\gRPC.DataAccess\gRPC.DataAccess.csproj", "{C3A33322-5A99-43B9-9792-24B7AD636CB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.client", "MicroServices\gRPC\gRPC.client\gRPC.client.csproj", "{444EB79F-8471-48DF-910D-0B98AE4990CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{C3A33322-5A99-43B9-9792-24B7AD636CB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3A33322-5A99-43B9-9792-24B7AD636CB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3A33322-5A99-43B9-9792-24B7AD636CB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{444EB79F-8471-48DF-910D-0B98AE4990CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{444EB79F-8471-48DF-910D-0B98AE4990CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{444EB79F-8471-48DF-910D-0B98AE4990CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{444EB79F-8471-48DF-910D-0B98AE4990CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +85,7 @@ Global
 		{7877CEBA-736B-4744-9E46-AB09B6CADFF2} = {84A490C8-4C12-4C1C-9F3C-3895EF0A37F9}
 		{C2D84785-E8F8-4EF9-8D5C-257C0965817D} = {7877CEBA-736B-4744-9E46-AB09B6CADFF2}
 		{C3A33322-5A99-43B9-9792-24B7AD636CB9} = {7877CEBA-736B-4744-9E46-AB09B6CADFF2}
+		{444EB79F-8471-48DF-910D-0B98AE4990CC} = {7877CEBA-736B-4744-9E46-AB09B6CADFF2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8CB4E436-B665-4637-8929-A8CC98E40925}
