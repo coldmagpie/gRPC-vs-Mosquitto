@@ -5,7 +5,9 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "message.api": "StartDebugging",
-        "user.api": "StartDebugging"
+        "user.api": "StartDebugging",
+        "grpc.client": "StartDebugging",
+        "grpc.server": "StartDebugging"
       }
     }
   }

@@ -1,10 +1,8 @@
-﻿using gRPC.DataAccess.Context;
+using gRPC.DataAccess.Context;
 using gRPC.DataAccess.Repositories;
-using gRPC.server.Servers;
-using gRPC.server.Services;
-using Microsoft.AspNetCore.Builder;
+using Grpc.server.Servers;
+using Grpc.server.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,8 +38,8 @@ var app = builder.Build();
 
 var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
-var communicationServer = services.GetRequiredService<CommunicationServer>();
-communicationServer.Start();
+var chatServer = services.GetRequiredService<CommunicationServer>();
+chatServer.Start();
 
 app.MapGrpcService<CommunicationService>();
 // Configure the HTTP request pipeline.

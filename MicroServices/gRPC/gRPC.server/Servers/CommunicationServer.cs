@@ -1,8 +1,8 @@
-﻿using gRPC.server.Services;
+﻿using gRPC.server;
 using Grpc.Core;
-using Microsoft.Extensions.Logging;
+using Grpc.server.Services;
 
-namespace gRPC.server.Servers;
+namespace Grpc.server.Servers;
 public class CommunicationServer(CommunicationService communicationService, ILogger<CommunicationServer> logger)
 {
     private const int ServerPort = 8082;

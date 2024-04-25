@@ -1,19 +1,22 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using gRPC.DataAccess.Models;
 using gRPC.DataAccess.Repositories;
+using gRPC.server;
 using Grpc.Core;
+using Empty = gRPC.server.Empty;
 
-namespace gRPC.server.Services;
 
-public class CommunicationService(IGrpcMessageRepository messageRepository) : Communication.CommunicationBase
+namespace Grpc.server.Services;
+
+public class CommunicationService(IGrpcMessageRepository grpcMessageRepository) : Communication.CommunicationBase
 {
-    private readonly IGrpcMessageRepository _repository = messageRepository;
+    private readonly IGrpcMessageRepository _repository = grpcMessageRepository;
 
     public override async Task<MessageResponse> SendMessage(Message request, ServerCallContext context)
     {
         try
         {
-            //Create a new Message entity based on the request
+            // Create a new Message entity based on the request
             var messageEntity = new MessageModel()
             {
                 Id = Guid.Parse(request.MessageId),
@@ -120,7 +123,6 @@ public class CommunicationService(IGrpcMessageRepository messageRepository) : Co
                 Content = request.Content,
                 TimeStamp = request.TimeStamp.ToDateTime()
             };
-            await _repository.UpdateAsync(message);
 
             return new Message
             {
@@ -152,3 +154,8 @@ public class CommunicationService(IGrpcMessageRepository messageRepository) : Co
         }
     }
 }
+
+
+
+
+

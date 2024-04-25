@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "gRPC.client": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

@@ -2,6 +2,7 @@ version: '3.4'
 
 networks:
   usermessage:
+  grpc:
 
 services:
   message.api:
@@ -61,4 +62,49 @@ services:
     ports:
       - "1883:1883"
 
+  grpc.client:
+    container_name: GrpcClient
+    image: ${DOCKER_REGISTRY-}grpcclient
+    build:
+      context: .
+      dockerfile: MicroServices/gRPC/gRPC.client/Dockerfile
+    networks:
+      - grpc
+    depends_on:
+      - grpc.server
+    ports:
+      - "9000:9000"
+    environment:
+      GRPC_SERVER_PORT: 7002
+      GRPC_SERVER_HOST: grpc.server
+  
+  grpcmessagedb:
+    container_name: grpcmessagedb
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    networks:
+      - grpc
+    ports:
+      - "1432:1432"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Pwd123!!1
+      - MSSQL_PID=Developer
 
+  grpc.server:
+    container_name: GrpcServer
+    image: ${DOCKER_REGISTRY-}grpcserver
+    build:
+      context: .
+      dockerfile: MicroServices/gRPC/gRPC.server/Dockerfile
+    networks:
+      - grpc
+    depends_on:
+      - grpcmessagedb
+    ports: 
+      - "7002:7002"
+    environment: 
+      DB_HOST: 'grpcmessagedb'
+      DB_NAME: 'GrpcMessageDb'
+      DB_USERSA: 'sa'
+      DB_MSSQL_SA_PASSWORD: 'Pwd123!!1'
+      DB_PORT: 1432
