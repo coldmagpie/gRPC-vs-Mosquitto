@@ -102,6 +102,7 @@ services:
       - grpcmessagedb
     ports: 
       - "7002:7002"
+      - "8082:8082"
     environment: 
       DB_HOST: 'grpcmessagedb'
       DB_NAME: 'GrpcMessageDb'

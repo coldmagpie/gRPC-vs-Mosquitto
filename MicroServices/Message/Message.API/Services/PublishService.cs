@@ -27,7 +27,7 @@ public class PublishService(ILogger<PublishService> logger) : IPublishService
             return;
                
         }
-            _logger.LogInformation("Connected to MQTT broker successfully.");
+        _logger.LogInformation("Connected to MQTT broker successfully.");
        
         var topic = "messages";
         var payload = GetMessagePayload(messageDto);

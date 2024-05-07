@@ -19,8 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Domain.Common\ChatApp2\Domain.Common\Domain.Common.csproj" />
-    <ProjectReference Include="..\..\..\Domain\Domain.csproj" />
+	  <ProjectReference Include="..\..\..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>

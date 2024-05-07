@@ -2,7 +2,7 @@
 using Grpc.Net.Client;
 
 // Create a gRPC channel to connect to the server
-var channel = GrpcChannel.ForAddress("http://grpc.server:8082");
+var channel = GrpcChannel.ForAddress("http://localhost:8082");
 
 // Create a client for your gRPC service
 var client = new Communication.CommunicationClient(channel);

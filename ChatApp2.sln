@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.DataAccess", "MicroSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.client", "MicroServices\gRPC\gRPC.client\gRPC.client.csproj", "{444EB79F-8471-48DF-910D-0B98AE4990CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.server", "MicroServices\gRPC\gRPC.server\gRPC.server.csproj", "{1D0BE998-A2B4-43AC-B805-3F15749DA3B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.server", "MicroServices\gRPC\gRPC.server\gRPC.server.csproj", "{1D0BE998-A2B4-43AC-B805-3F15749DA3B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark", "Benchmark\Benchmark.csproj", "{39B27C27-33CF-4292-82A2-E33EF9270283}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +111,14 @@ Global
 		{1D0BE998-A2B4-43AC-B805-3F15749DA3B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1D0BE998-A2B4-43AC-B805-3F15749DA3B5}.Release|x64.ActiveCfg = Release|Any CPU
 		{1D0BE998-A2B4-43AC-B805-3F15749DA3B5}.Release|x64.Build.0 = Release|Any CPU
+		{39B27C27-33CF-4292-82A2-E33EF9270283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39B27C27-33CF-4292-82A2-E33EF9270283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39B27C27-33CF-4292-82A2-E33EF9270283}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{39B27C27-33CF-4292-82A2-E33EF9270283}.Debug|x64.Build.0 = Debug|Any CPU
+		{39B27C27-33CF-4292-82A2-E33EF9270283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39B27C27-33CF-4292-82A2-E33EF9270283}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39B27C27-33CF-4292-82A2-E33EF9270283}.Release|x64.ActiveCfg = Release|Any CPU
+		{39B27C27-33CF-4292-82A2-E33EF9270283}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,7 +19,6 @@ public class CommunicationService(IGrpcMessageRepository grpcMessageRepository) 
             // Create a new Message entity based on the request
             var messageEntity = new MessageModel()
             {
-                Id = Guid.Parse(request.MessageId),
                 Sender = request.Sender,
                 Recipient = request.Recipient,
                 Content = request.Content,
