@@ -9,7 +9,7 @@ using BenchmarkDotNet.Jobs;
 
 namespace Benchmark;
 
-[SimpleJob( RunStrategy.ColdStart, RuntimeMoniker.Net80, launchCount: 1, warmupCount: 0, iterationCount: 1000, baseline: true), MemoryDiagnoser]
+[SimpleJob( RunStrategy.ColdStart, RuntimeMoniker.Net80, launchCount: 1, warmupCount: 0, iterationCount: 50, baseline: true), MemoryDiagnoser]
 [MinColumn, MaxColumn, MeanColumn, MedianColumn]
 [RPlotExporter]
 
