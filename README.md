@@ -3,6 +3,6 @@ This project demonstrates the integration of gRPC and MQTT communication protoco
 
 ## Features
 - **gRPC Communication**: Implements gRPC for efficient remote procedure calls.
-- **MQTT Communication**: Uses MQTT for lightweight messaging between devices.
+- **MQTT Communication**: Uses MQTT for lightweight messaging between services.
 - **Benchmarking**: Uses BenchmarkDotNet to measure the performance of gRPC and MQTT operations.
 - **Docker Compose**: Manages microservices and their dependencies using Docker Compose.
